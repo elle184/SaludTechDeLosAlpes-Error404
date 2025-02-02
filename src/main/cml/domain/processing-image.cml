@@ -1,0 +1,4 @@
+ContextMap ProcessingImageContextMap {
+    type = SYSTEM_LANDSCAPE
+    state = AS_IS
+}
