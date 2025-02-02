@@ -1,0 +1,72 @@
+/* The SaludTechContextMap application into multiple bounded contexts. */
+ContextMap SaludTechContextMap {
+	contains SuscriptionContext
+	contains UserContext
+	contains AmbientReadinessContext
+	contains LoadDataContext
+	contains AnonimusDataContext
+	contains DataStructureContext
+	contains DataExposureContext
+	contains WorkspaceContext
+	contains SearchContext
+
+
+	SuscriptionContext [P]<->[P] UserContext
+
+	UserContext [P]<->[P] AmbientReadinessContext
+
+	UserContext [U]->[D,CF] DataExposureContext
+	UserContext [U]->[D,CF] WorkspaceContext
+	UserContext [U]->[D,CF] SearchContext
+
+	AnonimusDataContext [U]->[D,CF] LoadDataContext
+	DataStructureContext [U]->[D,CF] AnonimusDataContext
+	DataExposureContext [D,ACL]<-[U] DataStructureContext
+
+}
+
+/* Suscription Context */
+BoundedContext SuscriptionContext {
+	
+	
+}
+
+/* User Context. */
+BoundedContext UserContext {
+	
+}
+
+/* AmbientReadiness Context. */
+BoundedContext AmbientReadinessContext {
+	
+}
+
+/* LoadData Context. */
+BoundedContext LoadDataContext {
+	
+}
+
+/* AnonimusData Context. */
+BoundedContext AnonimusDataContext {
+	
+}
+
+/* DataStructure Context. */
+BoundedContext DataStructureContext {
+	
+}
+
+/* DataExposure Context. */
+BoundedContext DataExposureContext {
+	
+}
+
+/* Workspace Context. */
+BoundedContext WorkspaceContext {
+	
+}
+
+/* Search Context. */
+BoundedContext SearchContext {
+	
+}
