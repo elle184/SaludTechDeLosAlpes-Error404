@@ -1,17 +1,24 @@
-ContextMap ProcessingImageContextMap {
+ContextMap ProcessingImageDiagnosticContextMap {
     type = SYSTEM_LANDSCAPE
     state = AS_IS
 }
 
-Domain ProcessImageDomain {
+Domain ProcessingImageDiagnosticDomain {
+    domainVisionStatement = "Dominio que describe todo la labor de STA para procesar las imágenes desde el recaudo de las mismas hasta la distribución a los usuarios."
+
     Subdomain CollectSubdomain {
         type = SUPPORTING_DOMAIN
         domainVisionStatement = "Gestiona todo el proceso y estrategia de recaudo de las imágenes y diagnósticos médicos."
     }
 
     Subdomain ProcessSubdomain {
-        type = GENERIC_SUBDOMAIN
+        type = CORE_DOMAIN
         domainVisionStatement = "Procesamiento de la información de las imágenes y diagnósticos."
+    }
+
+    Subdomain StructuringSubdomain {
+        type = CORE_DOMAIN
+        domainVisionStatement = "Mapeo y estructuración de los datos anonimizados junto con la tokenización de pacientes."
     }
 
     Subdomain DistributeSubdomain {
@@ -19,7 +26,7 @@ Domain ProcessImageDomain {
         domainVisionStatement = "Gestión de toda la logística de distribución de las imágenes, diagnósticos e información adicional a los usuarios registrados."
     }
 
-    Subdomain UserSubdomain {
+    Subdomain UserSalesAssistanceSubdomain {
         type = GENERIC_SUBDOMAIN
         domainVisionStatement = "Gestión de usuarios y clientes que contratan los servicios de STA."
     }
