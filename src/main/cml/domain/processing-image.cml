@@ -2,3 +2,25 @@ ContextMap ProcessingImageContextMap {
     type = SYSTEM_LANDSCAPE
     state = AS_IS
 }
+
+Domain ProcessImageDomain {
+    Subdomain CollectSubdomain {
+        type = SUPPORTING_DOMAIN
+        domainVisionStatement = "Gestiona todo el proceso y estrategia de recaudo de las imágenes y diagnósticos médicos."
+    }
+
+    Subdomain ProcessSubdomain {
+        type = GENERIC_SUBDOMAIN
+        domainVisionStatement = "Procesamiento de la información de las imágenes y diagnósticos."
+    }
+
+    Subdomain DistributeSubdomain {
+        type = CORE_DOMAIN
+        domainVisionStatement = "Gestión de toda la logística de distribución de las imágenes, diagnósticos e información adicional a los usuarios registrados."
+    }
+
+    Subdomain UserSubdomain {
+        type = GENERIC_SUBDOMAIN
+        domainVisionStatement = "Gestión de usuarios y clientes que contratan los servicios de STA."
+    }
+}
