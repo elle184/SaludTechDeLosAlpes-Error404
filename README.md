@@ -1,4 +1,5 @@
 # Entrega Semana 2
+Documento Compilado: https://github.com/elle184/SaludTechDeLosAlpes-Error404/blob/master/Documento%20Entrega-001-ArquitecturaDominio.pdf
 
 ---
 
