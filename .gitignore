@@ -4,3 +4,4 @@ src/main/.DS_Store
 src/main/cml/.DS_Store
 application/ms-1/.venv/
 application/.idea/
+application/ms-1/src/sta/__pycache__/
