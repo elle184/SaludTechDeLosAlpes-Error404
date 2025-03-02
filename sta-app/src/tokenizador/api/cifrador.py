@@ -5,15 +5,13 @@ from flask import redirect, render_template, request, session, url_for
 from flask import Response
 
 
-bp = api.create_blueprint('clientes', '/clientes')
+bp = api.create_blueprint('cifrar', '/cifrar')
 
-@bp.route('/login', methods = ['POST'])
-def login() :
+@bp.route('/carga', methods = ['POST'])
+def carga() :
     login_data = request.json
 
 
 @bp.route('/ping', methods = ['GET'])
 def ping() :
     return 'PONG', 200
-
-    
