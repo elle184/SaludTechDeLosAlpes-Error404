@@ -2,6 +2,11 @@
 
 Microservicio que contiene la lógica y arquitectura para el inicio de sesión de un usuario en el sistam SaludTech de los Alpes.
 
+## Justificaciones de diseño
+
+1. Event Stream Versioning: Se usa para el manejo del versionamiento de los esquemas y comandos para tener diferentes versiones de autenticación para los diferentes tipos de llamados que se pueden realizar dada una versión de request especifica para el artefacto que quiera consumir el servicio.
+2. Avro: Para mejorar el rendimiento y la latencia en el envio de mensajes al broker de eventos.
+
 ## Estructura del proyecto
 
 - **src/sta/api**: La carpeta contiene los endpoints para el inicio de sesión el cual ejecuta el evento `CreatedSession` y el comando `CreateSessionCommand`.
