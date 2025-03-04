@@ -11,4 +11,9 @@ bp = api.create_blueprint('clientes', '/clientes')
 def login() :
     login_data = request.json
 
+
+@bp.route('/ping', methods = ['GET'])
+def ping() :
+    return 'PONG', 200
+
     
