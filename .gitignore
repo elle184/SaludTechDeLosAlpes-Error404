@@ -7,3 +7,5 @@ venv
 DDD
 *.sdi
 *.pyc
+application/.idea
+application/ms-1/.venv/
