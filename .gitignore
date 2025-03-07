@@ -2,3 +2,10 @@
 	src/.DS_Store
 	src/main/.DS_Store
 	src/main/cml/.DS_Store
+data
+venv
+DDD
+*.sdi
+*.pyc
+application/.idea
+application/ms-1/.venv/
