@@ -140,6 +140,41 @@ services:
     ports:
       - "5000:5000"
 
+  tokenizador:
+    build: src/tokenizador
+    container_name: tokenizador
+    hostname: tokenizador
+    image: tokenizador/flask 
+    networks:
+      - sidecar
+      - pulsar
+    labels:
+      SidecarDiscover: "false"
+    environment:
+      - SALUDTECH_ADDRESS=saludtech
+      - PULSAR_ADDRESS=broker
+    depends_on:
+      - broker
+    ports:
+      - "5001:5001"
+  anonimizador:
+    build: src/anonimizador
+    container_name: anonimizador
+    hostname: anonimizador
+    image: anonimizador/flask 
+    networks:
+      - sidecar
+      - pulsar
+    labels:
+      SidecarDiscover: "false"
+    environment:
+      - SALUDTECH_ADDRESS=saludtech
+      - PULSAR_ADDRESS=broker
+    depends_on:
+      - broker
+    ports:
+      - "5002:5002"
+
   adaptador:
     image: "saludtech/adaptador"
     build:
