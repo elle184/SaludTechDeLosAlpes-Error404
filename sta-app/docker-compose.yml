@@ -99,7 +99,7 @@ services:
       - "6650:6650"
       - "8080:8080"
     command: bash -c "bin/apply-config-from-env.py conf/broker.conf
-      &&  exec bin/pulsar broker && bin/pulsar-admin topics create persistent://public/default/eventos-suscripcion"
+      &&  exec bin/pulsar broker && bin/pulsar-admin topics create persistent://public/default/cifrar-informacion && bin/pulsar-admin topics create persistent://public/default/informacion-cifrada"
   # MySQL8
   db:
     image: mysql:8
