@@ -101,10 +101,10 @@ services:
     command: bash -c "bin/apply-config-from-env.py conf/broker.conf
       &&  exec bin/pulsar broker && bin/pulsar-admin topics create persistent://public/default/cifrar-informacion && bin/pulsar-admin topics create persistent://public/default/informacion-cifrada"
   # MySQL8
-  db:
+  dbtokenizador:
     image: mysql:8
-    hostname: mysqldb
-    container_name: mysqldb
+    hostname: dbtokenizador
+    container_name: dbtokenizador
     cap_add:
       - SYS_NICE
     restart: always
@@ -118,7 +118,45 @@ services:
       - '3306:3306'
     volumes:
       - ./data/mysql:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  
+  dbsaludtech:
+    image: mysql:8
+    hostname: dbsaludtech
+    container_name: dbsaludtech
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      - MYSQL_DATABASE=saludtech
+      - MYSQL_ROOT_PASSWORD=saludtech
+    #profiles: ["aeroalpes", "db"]
+    networks:
+      - pulsar
+    ports:
+      - '3307:3306'
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    
+  dbanonimizador:
+    image: mysql:8
+    hostname: dbanonimizador
+    container_name: dbanonimizador
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      - MYSQL_DATABASE=anonimizador
+      - MYSQL_ROOT_PASSWORD=anonimizador
+    #profiles: ["aeroalpes", "db"]
+    networks:
+      - pulsar
+    ports:
+      - '3308:3306'
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   saludtech:
     build:
