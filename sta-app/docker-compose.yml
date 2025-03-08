@@ -117,7 +117,7 @@ services:
     ports:
       - '3306:3306'
     volumes:
-      - ./data/mysql:/var/lib/mysql
+      - my_data1:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
   
   dbsaludtech:
@@ -136,7 +136,7 @@ services:
     ports:
       - '3307:3306'
     volumes:
-      - ./data/mysql:/var/lib/mysql
+      - my_data2:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     
   dbanonimizador:
@@ -155,7 +155,7 @@ services:
     ports:
       - '3308:3306'
     volumes:
-      - ./data/mysql:/var/lib/mysql
+      - my_data3:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   saludtech:
@@ -271,3 +271,6 @@ services:
       - "5678:5678"
 volumes:
   pulsar-data:
+  my_data1:
+  my_data2:
+  my_data3:
