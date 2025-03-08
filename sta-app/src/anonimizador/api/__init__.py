@@ -1,8 +1,13 @@
 import os
 
-from flask import Flask, jsonify, redirect, render_template, request, url_for
+from flask import Flask, jsonify,redirect, render_template, request, url_for
 from flask_swagger import swagger
+import logging
 
+
+logging.basicConfig(level=logging.DEBUG) 
+
+logging.info("iniciando anonimizador.")  # Añade logs
 # Identifica el directorio base
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -36,6 +41,10 @@ def create_app(configuracion=None):
     #from aeroalpes.config.db import db
 
     importar_modelos_alchemy()
+    app.logger.setLevel(logging.DEBUG)
+    handler = logging.FileHandler('app.log')
+    app.logger.addHandler(handler)
+    app.logger.info('Inicializando aplicacion')
 
     with app.app_context():
         ...
@@ -47,6 +56,11 @@ def create_app(configuracion=None):
     # Registro de Blueprints
     app.register_blueprint(anonimizador.bp)
 
+    @app.route('/health')
+    def health():
+        logging.info("Health endpoint called")
+        return "OK", 200 
+
     @app.route("/specAnonimizador")
     def spec():
         swag = swagger(app)
@@ -55,3 +69,5 @@ def create_app(configuracion=None):
         return jsonify(swag)
 
     return app
+
+app = create_app()

@@ -179,7 +179,8 @@ services:
       - "5000:5000"
 
   tokenizador:
-    build: src/tokenizador
+    build: 
+      dockerfile: tokenizador.Dockerfile
     container_name: tokenizador
     hostname: tokenizador
     image: tokenizador/flask 
@@ -196,7 +197,8 @@ services:
     ports:
       - "5001:5001"
   anonimizador:
-    build: src/anonimizador
+    build:
+      dockerfile: anonimizador.Dockerfile
     container_name: anonimizador
     hostname: anonimizador
     image: anonimizador/flask 

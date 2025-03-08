@@ -7,4 +7,4 @@ RUN pip install --no-cache-dir -r requirements-tokenizacion.txt
 
 COPY . .
 
-CMD [ "flask", "--app", "./api", "run", "--host=0.0.0.0", "--port=5001"]
+CMD [ "flask", "--app", "./src/tokenizador/api", "run", "--host=0.0.0.0", "--port=5001"]

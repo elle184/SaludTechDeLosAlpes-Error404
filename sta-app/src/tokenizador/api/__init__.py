@@ -2,6 +2,12 @@ import os
 
 from flask import Flask, jsonify, redirect, render_template, request, url_for
 from flask_swagger import swagger
+import logging
+
+
+logging.basicConfig(level=logging.DEBUG) 
+
+logging.info("iniciando tokenizador.")  # Añade logs
 
 # Identifica el directorio base
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -47,6 +53,10 @@ def create_app(configuracion=None):
     # Registro de Blueprints
     app.register_blueprint(tokenizador.bp)
 
+    @app.route('/health')
+    def health():
+        return "OK", 200 
+
     @app.route("/specToken")
     def spec():
         swag = swagger(app)
@@ -55,3 +65,5 @@ def create_app(configuracion=None):
         return jsonify(swag)
 
     return app
+
+app = create_app()
