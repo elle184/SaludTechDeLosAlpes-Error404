@@ -4,7 +4,6 @@ networks:
     driver: bridge
 
 services:
-  # Start zookeeper
   zookeeper:
     image: apachepulsar/pulsar:latest
     container_name: zookeeper
@@ -25,27 +24,22 @@ services:
       timeout: 5s
       retries: 30
 
-  # Init cluster metadata
   pulsar-init:
     container_name: pulsar-init
     hostname: pulsar-init
     image: apachepulsar/pulsar:latest
     networks:
       - pulsar
-    command: [
-      "bash",
-      "-c",
-      "bin/pulsar initialize-cluster-metadata \
+    command: >
+      bash -c "bin/pulsar initialize-cluster-metadata \
       --cluster cluster-a \
       --zookeeper zookeeper:2181 \
       --configuration-store zookeeper:2181 \
       --web-service-url http://broker:8080 \
       --broker-service-url pulsar://broker:6650"
-    ]
     depends_on:
       - zookeeper
 
-  # Start bookie
   bookie:
     image: apachepulsar/pulsar:latest
     container_name: bookie
@@ -64,7 +58,6 @@ services:
       - ./data/bookkeeper:/pulsar/data/bookkeeper
     command: bash -c "bin/apply-config-from-env.py conf/bookkeeper.conf && exec bin/pulsar bookie"
 
-  # Start broker
   broker:
     image: apachepulsar/pulsar:latest
     container_name: broker
