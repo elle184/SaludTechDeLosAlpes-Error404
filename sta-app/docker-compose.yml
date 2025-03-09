@@ -2,13 +2,11 @@ version: '3'
 networks:
   pulsar:
     driver: bridge
-  sidecar:
-    driver: bridge
+
 services:
-# Start zookeeper
+  # Start zookeeper
   zookeeper:
     image: apachepulsar/pulsar:latest
-    #profiles: ["pulsar"]
     container_name: zookeeper
     restart: on-failure
     networks:
@@ -27,12 +25,11 @@ services:
       timeout: 5s
       retries: 30
 
-# Init cluster metadata
+  # Init cluster metadata
   pulsar-init:
     container_name: pulsar-init
     hostname: pulsar-init
     image: apachepulsar/pulsar:latest
-    #profiles: ["pulsar"]
     networks:
       - pulsar
     command: [
@@ -48,10 +45,9 @@ services:
     depends_on:
       - zookeeper
 
-# Start bookie
+  # Start bookie
   bookie:
     image: apachepulsar/pulsar:latest
-    #profiles: ["pulsar"]
     container_name: bookie
     restart: on-failure
     networks:
@@ -60,19 +56,17 @@ services:
       - clusterName=cluster-a
       - zkServers=zookeeper:2181
       - metadataServiceUri=metadata-store:zk:zookeeper:2181
-      - advertisedAddress=bookie 
+      - advertisedAddress=bookie
     depends_on:
       - zookeeper
       - pulsar-init
-  # Map the local directory to the container to avoid bookie startup failure due to insufficient container disks.
     volumes:
       - ./data/bookkeeper:/pulsar/data/bookkeeper
     command: bash -c "bin/apply-config-from-env.py conf/bookkeeper.conf && exec bin/pulsar bookie"
 
-# Start broker
+  # Start broker
   broker:
     image: apachepulsar/pulsar:latest
-    #profiles: ["pulsar"]
     container_name: broker
     hostname: broker
     restart: on-failure
@@ -93,179 +87,8 @@ services:
     ports:
       - "6650:6650"
       - "8080:8080"
-    command: bash -c "bin/apply-config-from-env.py conf/broker.conf
-      &&  exec bin/pulsar broker && bin/pulsar-admin topics create persistent://public/default/cifrar-informacion && bin/pulsar-admin topics create persistent://public/default/informacion-cifrada"
-  # MySQL8
-  dbtokenizador:
-    image: mysql:8
-    hostname: dbtokenizador
-    container_name: dbtokenizador
-    cap_add:
-      - SYS_NICE
-    restart: always
-    environment:
-      - MYSQL_DATABASE=tokenizacion
-      - MYSQL_ROOT_PASSWORD=tokenizacion
-    #profiles: ["aeroalpes", "db"]
-    networks:
-      - pulsar
-    ports:
-      - '3306:3306'
-    volumes:
-      - my_data1:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-  
-  dbsaludtech:
-    image: mysql:8
-    hostname: dbsaludtech
-    container_name: dbsaludtech
-    cap_add:
-      - SYS_NICE
-    restart: always
-    environment:
-      - MYSQL_DATABASE=saludtech
-      - MYSQL_ROOT_PASSWORD=saludtech
-    #profiles: ["aeroalpes", "db"]
-    networks:
-      - pulsar
-    ports:
-      - '3307:3306'
-    volumes:
-      - my_data2:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-    
-  dbanonimizador:
-    image: mysql:8
-    hostname: dbanonimizador
-    container_name: dbanonimizador
-    cap_add:
-      - SYS_NICE
-    restart: always
-    environment:
-      - MYSQL_DATABASE=anonimizador
-      - MYSQL_ROOT_PASSWORD=anonimizador
-    #profiles: ["aeroalpes", "db"]
-    networks:
-      - pulsar
-    ports:
-      - '3308:3306'
-    volumes:
-      - my_data3:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: bash -c "bin/apply-config-from-env.py conf/broker.conf && exec bin/pulsar broker"
 
-  saludtech:
-    build:
-      context: .
-      dockerfile: saludtech.Dockerfile
-    container_name: saludtech
-    hostname: saludtech
-    image: saludtech/flask 
-    networks:
-      - sidecar
-      - pulsar
-    labels:
-      SidecarDiscover: "false"
-    environment:
-      - SALUDTECH_ADDRESS=saludtech
-      - PULSAR_ADDRESS=broker
-    depends_on:
-      - broker
-    ports:
-      - "5000:5000"
-
-  tokenizador:
-    build: 
-      dockerfile: tokenizador.Dockerfile
-    container_name: tokenizador
-    hostname: tokenizador
-    image: tokenizador/flask 
-    networks:
-      - sidecar
-      - pulsar
-    labels:
-      SidecarDiscover: "false"
-    environment:
-      - SALUDTECH_ADDRESS=saludtech
-      - PULSAR_ADDRESS=broker
-    depends_on:
-      - broker
-    ports:
-      - "5001:5001"
-  anonimizador:
-    build:
-      dockerfile: anonimizador.Dockerfile
-    container_name: anonimizador
-    hostname: anonimizador
-    image: anonimizador/flask 
-    networks:
-      - sidecar
-      - pulsar
-    labels:
-      SidecarDiscover: "false"
-    environment:
-      - SALUDTECH_ADDRESS=saludtech
-      - PULSAR_ADDRESS=broker
-    depends_on:
-      - broker
-    ports:
-      - "5002:5002"
-
-  adaptador:
-    image: "saludtech/adaptador"
-    build:
-      context: .
-      dockerfile: adaptador.Dockerfile
-    container_name: adaptador
-    hostname: adaptador
-    networks:
-      - sidecar
-    environment:
-      - SALUDTECH_ADDRESS=saludtech
-      - PULSAR_ADDRESS=broker
-    depends_on:
-      - saludtech
-    ports:
-      - "50051:50051"
-  
-  # Servicios de Notificación
-  notificacion:
-    container_name: notificacion
-    restart: on-failure
-    build:
-      context: .
-      dockerfile: notificacion.Dockerfile
-    hostname: notificacion
-    image: saludtech/notificacion 
-    #profiles: ["saludtech", "notificacion"]
-    depends_on:
-      - saludtech
-      - broker
-    environment:
-      - SALUDTECH_ADDRESS=saludtech
-      - PULSAR_ADDRESS=pulsar://broker:6650
-    networks:
-      - pulsar
-
-  # Servicio UI
-  ui:
-    container_name: ui
-    restart: on-failure
-    build:
-      context: .
-      dockerfile: ui.Dockerfile
-    hostname: ui
-    image: saludtech/ui 
-    #profiles: ["saludtech", "ui"]
-    depends_on:
-      - saludtech
-      - broker
-    environment:
-      - SALUDTECH_ADDRESS=saludtech
-      - PULSAR_ADDRESS=broker
-    networks:
-      - pulsar
-    ports:
-      - "5678:5678"
 volumes:
   pulsar-data:
   my_data1:
