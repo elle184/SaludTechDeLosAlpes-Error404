@@ -22,3 +22,7 @@ Werkzeug==2.2.2
 pulsar-client==3.3.0
 # Soporte para serialización y deserialización con Avro
 fastavro==1.9.5
+python-dotenv
+python-jose
+flask-cors
+six~=1.17.0

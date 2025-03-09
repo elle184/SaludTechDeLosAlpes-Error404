@@ -1,6 +1,6 @@
 FROM python:3.10.16-bookworm
 
-COPY . /app
+COPY ../.. /app
 
 WORKDIR /app
 

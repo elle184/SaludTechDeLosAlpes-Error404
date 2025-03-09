@@ -46,8 +46,7 @@ services:
       --broker-service-url pulsar://broker:6650"
     ]
     depends_on:
-      zookeeper:
-        condition: service_healthy
+      - zookeeper
 
 # Start bookie
   bookie:
@@ -63,10 +62,8 @@ services:
       - metadataServiceUri=metadata-store:zk:zookeeper:2181
       - advertisedAddress=bookie 
     depends_on:
-      zookeeper:
-        condition: service_healthy
-      pulsar-init:
-        condition: service_completed_successfully
+      - zookeeper
+      - pulsar-init
   # Map the local directory to the container to avoid bookie startup failure due to insufficient container disks.
     volumes:
       - ./data/bookkeeper:/pulsar/data/bookkeeper
@@ -91,10 +88,8 @@ services:
       - advertisedAddress=broker
       - advertisedListeners=external:pulsar://broker:6650
     depends_on:
-      zookeeper:
-        condition: service_healthy
-      bookie:
-        condition: service_started
+      - zookeeper
+      - bookie
     ports:
       - "6650:6650"
       - "8080:8080"
