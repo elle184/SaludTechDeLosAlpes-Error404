@@ -38,10 +38,10 @@ def get_users():
     current_app.logger.info('Entra al get')
     return jsonify(data)
 
-@bp.route('/users/<int:user_id>', methods=['GET'])
+@bp.route('/users/<string:user_id>', methods=['GET'])
 def get_user(user_id):
     for user in data:
-        if user["User"]["id"] == user_id:  # Asumiendo que tienes un campo "id" en tu JSON
+        if user["User"]["token"] == user_id:  # Asumiendo que tienes un campo "id" en tu JSON
             return jsonify(user)
     return jsonify({"message": "Usuario no encontrado"}), 404
 
@@ -49,23 +49,23 @@ def get_user(user_id):
 def create_user():
     new_user = request.get_json()
     # Asignar un ID único al nuevo usuario (puedes usar un contador o UUID)
-    new_user["User"]["id"] = len(data) + 1  # Ejemplo simple con contador
+    new_user["User"]["token"] = len(data) + 1  # Ejemplo simple con contador
     data.append(new_user)
     return jsonify(new_user), 201
 
-@bp.route('/users/<int:user_id>', methods=['PUT'])
+@bp.route('/users/<string:user_id>', methods=['PUT'])
 def update_user(user_id):
     updated_user = request.get_json()
     for i, user in enumerate(data):
-        if user["User"]["id"] == user_id:
+        if user["User"]["token"] == user_id:
             data[i] = updated_user
             return jsonify(updated_user)
     return jsonify({"message": "Usuario no encontrado"}), 404
 
-@bp.route('/users/<int:user_id>', methods=['DELETE'])
+@bp.route('/users/<string:user_id>', methods=['DELETE'])
 def delete_user(user_id):
     for i, user in enumerate(data):
-        if user["User"]["id"] == user_id:
+        if user["User"]["token"] == user_id:
             del data[i]
             return jsonify({"message": "Usuario eliminado"})
     return jsonify({"message": "Usuario no encontrado"}), 404
