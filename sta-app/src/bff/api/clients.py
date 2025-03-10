@@ -5,7 +5,7 @@ from flask import redirect, render_template, request, session, url_for
 from flask import Response
 
 
-bp = api.create_blueprint('clientes', '/clientes')
+bp = api.create_blueprint('bff', '/bff')
 
 @bp.route('/login', methods = ['POST'])
 def login() :
