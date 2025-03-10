@@ -25,6 +25,36 @@ services:
     networks:
       - app_network
 
+  bff:
+    build:
+      context: .
+      dockerfile: bff.Dockerfile
+    container_name: bff
+    hostname: bff
+    restart: on-failure
+    ports:
+      - "5050:5050"
+    networks:
+      - app_network
+
+
+  pulsar-express:
+    image: bbonnin/pulsar-express
+    container_name: pulsar-express
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    environment:
+      - SERVICE_URL=http://broker:8080
+      - REFRESH_INTERVAL=5000  # Actualiza cada 5s para ver cambios más rápido
+    depends_on:
+      broker:
+        condition: service_healthy
+    restart: on-failure
+
+
+
 networks:
   app_network:
     driver: bridge
