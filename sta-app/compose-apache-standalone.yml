@@ -11,4 +11,28 @@ services:
     environment:
       - PULSAR_MEM=-Xms512m -Xmx512m -XX:MaxDirectMemorySize=512m
     volumes:
-      - ./data:/pulsar/data
+      - pulsar-data:/pulsar/data
+    networks:
+      - app_network
+
+  pulsar-express:
+    image: bbonnin/pulsar-express
+    container_name: pulsar-express
+    ports:
+      - "3000:3000"
+    networks:
+      - app_network
+    environment:
+      # Ajusta el protocolo pulsar:// para el broker y http:// para la parte de admin
+      - SERVICE_URL=pulsar://pulsar:6650
+      - ADMIN_URL=http://pulsar:8080
+      - REFRESH_INTERVAL=5000
+    depends_on:
+      - pulsar
+    restart: on-failure
+
+volumes:
+  pulsar-data:
+
+networks:
+  app_network:
