@@ -1,89 +1,18 @@
 version: '3'
-networks:
-  pulsar:
-    driver: bridge
 
 services:
-  zookeeper:
-    image: apachepulsar/pulsar:latest
-    container_name: zookeeper
+  anonimizador:
+    build:
+      context: .
+      dockerfile: anonimizador.Dockerfile
+    container_name: anonimizador
+    hostname: anonimizador
     restart: on-failure
-    networks:
-      - pulsar
-    volumes:
-      - ./data/zookeeper:/pulsar/data/zookeeper
-    environment:
-      - metadataStoreUrl=zk:zookeeper:2181
-    command: >
-      bash -c "bin/apply-config-from-env.py conf/zookeeper.conf && \
-             bin/generate-zookeeper-config.sh conf/zookeeper.conf && \
-             exec bin/pulsar zookeeper"
-    healthcheck:
-      test: ["CMD", "bin/pulsar-zookeeper-ruok.sh"]
-      interval: 10s
-      timeout: 5s
-      retries: 30
-
-  pulsar-init:
-    container_name: pulsar-init
-    hostname: pulsar-init
-    image: apachepulsar/pulsar:latest
-    networks:
-      - pulsar
-    command: >
-      bash -c "bin/pulsar initialize-cluster-metadata \
-      --cluster cluster-a \
-      --zookeeper zookeeper:2181 \
-      --configuration-store zookeeper:2181 \
-      --web-service-url http://broker:8080 \
-      --broker-service-url pulsar://broker:6650"
-    depends_on:
-      - zookeeper
-
-  bookie:
-    image: apachepulsar/pulsar:latest
-    container_name: bookie
-    restart: on-failure
-    networks:
-      - pulsar
-    environment:
-      - clusterName=cluster-a
-      - zkServers=zookeeper:2181
-      - metadataServiceUri=metadata-store:zk:zookeeper:2181
-      - advertisedAddress=bookie
-    depends_on:
-      - zookeeper
-      - pulsar-init
-    volumes:
-      - ./data/bookkeeper:/pulsar/data/bookkeeper
-    command: bash -c "bin/apply-config-from-env.py conf/bookkeeper.conf && exec bin/pulsar bookie"
-
-  broker:
-    image: apachepulsar/pulsar:latest
-    container_name: broker
-    hostname: broker
-    restart: on-failure
-    networks:
-      - pulsar
-    environment:
-      - metadataStoreUrl=zk:zookeeper:2181
-      - zookeeperServers=zookeeper:2181
-      - clusterName=cluster-a
-      - managedLedgerDefaultEnsembleSize=1
-      - managedLedgerDefaultWriteQuorum=1
-      - managedLedgerDefaultAckQuorum=1
-      - advertisedAddress=broker
-      - advertisedListeners=external:pulsar://broker:6650
-    depends_on:
-      - zookeeper
-      - bookie
     ports:
-      - "6650:6650"
-      - "8080:8080"
-    command: bash -c "bin/apply-config-from-env.py conf/broker.conf && exec bin/pulsar broker"
+      - "5002:5002"
+    networks:
+      - app_network
 
-volumes:
-  pulsar-data:
-  my_data1:
-  my_data2:
-  my_data3:
+networks:
+  app_network:
+    driver: bridge
