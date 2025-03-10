@@ -1,134 +1,114 @@
 [
-    {
-      "User": {
-        "id": 1,
-        "Metadata": {
-          "Patient history": "Completa",
-          "Clinical environment": "Urbano",
+  {
+    "User": {
+      "id": 1,
+      "Full name": "Juan Pérez",
+      "Birthdate": "1985-05-10",
+      "Marital status": "Casado",
+      "Occupation": "Ingeniero",
+      "Address": "Calle Mayor, 123",
+      "Phone number": "555-123-4567",
+      "Patient history": {
+        "Familiar history": "Padre con diabetes",
+        "Clinical notes": "Sin alergias conocidas",
+        "Habits": {
+          "Vice": "Fumador ocasional",
+          "Physical activity level": "Moderado",
+          "Diet": "Equilibrada",
+          "Stress level": "Medio"
+        },
+        "Medical history": {
           "Disease": "Ninguna",
-          "Age group": "Adulto",
-          "Gender": "Masculino",
-          "Ethnicity": "Caucásico",
-          "Modality": {
-            "Name": "Resonancia magnética",
-            "Description": "Cerebral"
-          },
-          "File types": {
-            "Name": "DICOM",
-            "Description": "Imágenes médicas"
-          },
-          "Anatomical area": {
-            "Zone": "Cerebro",
-            "Name": "Cerebro",
-            "Type": "Órgano"
-          },
-          "Files": {
-            "Name": "RM_cerebral.dcm",
-            "Resolution": "512x512",
-            "Contrast": "Gadolinio",
-            "Dimension": "3D",
-            "Scanner phase": "T1"
-          }
-        }
-      }
-    },
-    {
-      "User": {
-        "id": 2,
-        "Metadata": {
-          "Patient history": "Completa",
-          "Clinical environment": "Rural",
-          "Disease": "Asma",
-          "Age group": "Joven adulto",
-          "Gender": "Femenino",
-          "Ethnicity": "Mestiza",
-          "Modality": {
-            "Name": "Radiografía",
-            "Description": "De tórax"
-          },
-          "File types": {
-            "Name": "PNG",
-            "Description": "Imagen médica"
-          },
-          "Anatomical area": {
-            "Zone": "Tórax",
-            "Name": "Pulmones",
-            "Type": "Órgano"
-          },
-          "Files": {
-            "Name": "Rx_torax.png",
-            "Resolution": "1024x768",
-            "Contrast": "Ninguno",
-            "Dimension": "2D",
-            "Scanner phase": "Inspiración"
-          }
-        }
-      }
-    },
-    {
-      "User": {
-        "id": 3,
-        "Metadata": {
-          "Patient history": "Regular checkups",
-          "Clinical environment": "Hospital",
-          "Disease": "Hypertension",
-          "Age group": "Adult",
-          "Gender": "Male",
-          "Ethnicity": "Hispanic",
-          "Modality": {
-            "Name": "X-Ray",
-            "Description": "Chest X-Ray"
-          },
-          "File types": {
-            "Name": "DICOM",
-            "Description": "Digital Imaging"
-          },
-          "Anatomical area": {
-            "Zone": "Thorax",
-            "Name": "Lungs",
-            "Type": "Soft Tissue"
-          },
-          "Files": {
-            "Name": "chest_xray_juan",
-            "Resolution": "1024x768",
-            "Contrast": "High",
-            "Dimension": "2D",
-            "Scanner phase": "Posteroanterior"
-          }
-        }
-      }
-    },
-    {
-      "User": {
-        "id": 4,
-        "Metadata": {
-          "Patient history": "Routine checkup",
-          "Clinical environment": "Clinic",
-          "Disease": "None",
-          "Age group": "Young Adult",
-          "Gender": "Female",
-          "Ethnicity": "Caucasian",
-          "Modality": {
-            "Name": "MRI",
-            "Description": "Brain MRI"
-          },
-          "File types": {
-            "Name": "JPEG",
-            "Description": "Brain scan image"
-          },
-          "Anatomical area": {
-            "Zone": "Head",
-            "Name": "Brain",
-            "Type": "Neural Tissue"
-          },
-          "Files": {
-            "Name": "mri_brain_maria",
-            "Resolution": "1280x720",
-            "Contrast": "Medium",
-            "Dimension": "3D",
-            "Scanner phase": "Axial"
-          }
+          "Medical procedure": "Cirugía de apendicitis",
+          "Allergy": "Polen",
+          "Medicine in use": "Ninguna",
+          "Vaccine history": "Todas al día"
         }
       }
     }
-  ]
+  },
+  {
+    "User": {
+      "id": 2,
+      "Full name": "Ana García",
+      "Birthdate": "1992-11-25",
+      "Marital status": "Soltera",
+      "Occupation": "Profesora",
+      "Address": "Calle del Sol, 456",
+      "Phone number": "555-987-6543",
+      "Patient history": {
+        "Familiar history": "Madre con hipertensión",
+        "Clinical notes": "Alergia al látex",
+        "Habits": {
+          "Vice": "Ninguno",
+          "Physical activity level": "Alta",
+          "Diet": "Vegetariana",
+          "Stress level": "Bajo"
+        },
+        "Medical history": {
+          "Disease": "Asma",
+          "Medical procedure": "Ninguna",
+          "Allergy": "Látex",
+          "Medicine in use": "Inhalador para el asma",
+          "Vaccine history": "Todas al día"
+        }
+      }
+    }
+  },
+  {
+    "User": {
+      "id": 3,
+      "Full name": "Juan Pérez",
+      "Birthdate": "1985-06-15",
+      "Marital status": "Married",
+      "Occupation": "Engineer",
+      "Address": "123 Main St, City A",
+      "Phone number": "123-456-7890",
+      "Patient history": {
+        "Familiar history": "Diabetes in family",
+        "Clinical notes": "Mild hypertension",
+        "Habits": {
+          "Vice": "None",
+          "Physical activity level": "Moderate",
+          "Diet": "Balanced",
+          "Stress level": "Medium"
+        },
+        "Medical history": {
+          "Disease": "Hypertension",
+          "Medical procedure": "Appendectomy",
+          "Allergy": "Penicillin",
+          "Medicine in use": "Lisinopril",
+          "Vaccine history": "Covid-19, Tetanus"
+        }
+      }
+    }
+  },
+  {
+    "User": {
+      "id": 4,
+      "Full name": "Maria González",
+      "Birthdate": "1992-03-22",
+      "Marital status": "Single",
+      "Occupation": "Teacher",
+      "Address": "456 Elm St, City B",
+      "Phone number": "987-654-3210",
+      "Patient history": {
+        "Familiar history": "None",
+        "Clinical notes": "Good health",
+        "Habits": {
+          "Vice": "Alcohol occasionally",
+          "Physical activity level": "High",
+          "Diet": "Vegetarian",
+          "Stress level": "Low"
+        },
+        "Medical history": {
+          "Disease": "None",
+          "Medical procedure": "None",
+          "Allergy": "None",
+          "Medicine in use": "None",
+          "Vaccine history": "Covid-19, Hepatitis B"
+        }
+      }
+    }
+  }
+]
