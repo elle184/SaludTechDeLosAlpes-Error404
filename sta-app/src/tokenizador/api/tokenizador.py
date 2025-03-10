@@ -17,7 +17,7 @@ def ping() :
     return 'PONG', 200
 
 
-def load_data(filename="/src/anonimizador/api/data.json"):
+def load_data(filename="/src/tokenizador/api/data.json"):
     current_app.logger.info('LLamando data')
     current_app.logger.info('Archivo un : %s', str(filename))
     global data
