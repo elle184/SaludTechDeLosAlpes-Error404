@@ -44,7 +44,7 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - app-network
+      - app_network
     environment:
       - SERVICE_URL=http://broker:8080
       - REFRESH_INTERVAL=5000  # Actualiza cada 5s para ver cambios más rápido
