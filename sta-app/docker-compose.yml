@@ -46,7 +46,7 @@ services:
     networks:
       - app_network
     environment:
-      - SERVICE_URL=http://broker:8080
+      - SERVICE_URL=http://34.135.143.83:6650
       - REFRESH_INTERVAL=5000  # Actualiza cada 5s para ver cambios más rápido
     restart: on-failure
 
