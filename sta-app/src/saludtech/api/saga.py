@@ -17,7 +17,6 @@ class SagaResponse(BaseModel):
 
 router = APIRouter(tags=["saga"])
 
-#valido que recibo token
 @router.post("/saga", response_model=SagaResponse)
 async def start_saga(request: SagaRequest):
     """

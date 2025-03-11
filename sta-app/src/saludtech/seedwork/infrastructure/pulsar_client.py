@@ -2,26 +2,26 @@ import pulsar
 import json
 import asyncio
 
-def publish_and_wait_for_event(topic: str, data: dict, saga_id: str, service_url="pulsar://localhost:6650", timeout=10000):
+def publish_and_wait_for_event(data: dict, saga_id: str, service_url="pulsar://localhost:6650", timeout=10000):
     """
-    Publica el mensaje en el topic de Pulsar y espera (de forma síncrona) la confirmación de recepción
-    utilizando una suscripción única basada en el saga_id.
+    Publica un mensaje en el tópico 'tokenizer_event' y espera de forma síncrona la respuesta desde el tópico 'tokenizer_send_event'.
+    Se utiliza el saga_id como nombre de la suscripción para recibir solo los mensajes que correspondan a la ejecución actual.
     """
-    # Usamos una suscripción única para que nuestro consumidor reciba sólo mensajes nuevos
-    subscription = f"saga_{saga_id}_subscription"
     client = pulsar.Client(service_url)
     try:
-        # Se crea el consumidor con posición inicial en el último mensaje (para no procesar mensajes antiguos)
-        consumer = client.subscribe(
-            topic, 
-            subscription_name=subscription, 
-            initial_position=pulsar.InitialPosition.Latest
-        )
-        producer = client.create_producer(topic)
+        # Publica el mensaje en el tópico 'tokenizer_event'
+        producer = client.create_producer("tokenizer_event")
         message = json.dumps(data)
         producer.send(message.encode('utf-8'))
         
-        # Espera a recibir el mensaje publicado (se asume que se recibirá en un tiempo razonable)
+        # Crea el consumidor en el tópico 'tokenizer_send_event'
+        consumer = client.subscribe(
+            "tokenizer_send_event",
+            subscription_name=saga_id,  # suscripción única basada en saga_id
+            initial_position=pulsar.InitialPosition.Latest
+        )
+        
+        # Espera a recibir el mensaje con un timeout razonable
         msg = consumer.receive(timeout_millis=timeout)
         consumer.acknowledge(msg)
         received_data = json.loads(msg.data().decode('utf-8'))
