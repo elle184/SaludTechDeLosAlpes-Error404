@@ -2,7 +2,7 @@ import pulsar
 import json
 import asyncio
 
-def publish_and_wait_for_event(data: dict, saga_id: str, service_url="pulsar://localhost:6650", timeout=10000):
+def publish_and_wait_for_event(topic, data: dict, saga_id: str, service_url="pulsar://localhost:6650", timeout=30000):
     """
     Publica un mensaje en el tópico 'tokenizer_event' y espera de forma síncrona la respuesta desde el tópico 'tokenizer_send_event'.
     Se utiliza el saga_id como nombre de la suscripción para recibir solo los mensajes que correspondan a la ejecución actual.
