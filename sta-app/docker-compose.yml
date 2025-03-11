@@ -37,6 +37,18 @@ services:
     networks:
       - app_network
 
+  tokenizador:
+    build:
+      context: .
+      dockerfile: tokenizador.Dockerfile
+    container_name: tokenizador
+    hostname: tokenizador
+    restart: on-failure
+    ports:
+      - "5001:5001"
+    networks:
+      - app_network
+
 
   pulsar-express:
     image: bbonnin/pulsar-express
