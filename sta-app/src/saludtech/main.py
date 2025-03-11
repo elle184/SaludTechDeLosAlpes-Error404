@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel
 from typing import Any, Dict
 from modules.sagas.coordinadores.saga_imagenes import SagaImagenes
@@ -16,6 +16,7 @@ class SagaResponse(BaseModel):
     error: str = None
     data: Dict[str, Any] = None
 
+# TOKEN: validar que recibo un token X
 @app.post("/saga", response_model=SagaResponse)
 async def start_saga(request: SagaRequest):
     """
@@ -38,6 +39,27 @@ async def get_saga_status(saga_id: str):
     if record:
         return record
     raise HTTPException(status_code=404, detail="Saga no encontrada")
+
+class HealthCheck(BaseModel):
+    """Response model to validate and return when performing a health check."""
+    status: str = "OK"
+
+def get_health() -> HealthCheck:
+    return HealthCheck(status="OK")
+
+@app.get(
+    "/ping",
+    tags=["healthcheck"],
+    summary="Perform a Health Check",
+    response_description="Return HTTP Status Code 200 (OK)",
+    status_code=status.HTTP_200_OK,
+    response_model=HealthCheck,
+)
+async def ping() -> HealthCheck:
+    """
+    Endpoint para consultar el estado de la saga mediante su identificador.
+    """
+    return HealthCheck(status="OK")
 
 if __name__ == '__main__':
     import uvicorn
