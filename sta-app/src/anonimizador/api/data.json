@@ -1,7 +1,7 @@
 [
   {
     "User": {
-      "id": 1,
+      "token": "550e8400-e29b-41d4-a716-446655440000",
       "Full name": "Juan Pérez",
       "Birthdate": "1985-05-10",
       "Marital status": "Casado",
@@ -10,7 +10,7 @@
       "Phone number": "555-123-4567",
       "Patient history": {
         "Familiar history": "Padre con diabetes",
-        "Clinical notes": "Sin alergias conocidas",
+        "Clinical notes": "Sin alergias conoctokenas",
         "Habits": {
           "Vice": "Fumador ocasional",
           "Physical activity level": "Moderado",
@@ -24,12 +24,40 @@
           "Medicine in use": "Ninguna",
           "Vaccine history": "Todas al día"
         }
+      },
+      "Metadata": {
+        "Patient history": "Completa",
+        "Clinical environment": "Urbano",
+        "Disease": "Ninguna",
+        "Age group": "Adulto",
+        "Gender": "Masculino",
+        "Ethnicity": "Caucásico",
+        "Modality": {
+          "Name": "Resonancia magnética",
+          "Description": "Cerebral"
+        },
+        "File types": {
+          "Name": "DICOM",
+          "Description": "Imágenes médicas"
+        },
+        "Anatomical area": {
+          "Zone": "Cerebro",
+          "Name": "Cerebro",
+          "Type": "Órgano"
+        },
+        "Files": {
+          "Name": "RM_cerebral.dcm",
+          "Resolution": "512x512",
+          "Contrast": "Gadolinio",
+          "Dimension": "3D",
+          "Scanner phase": "T1"
+        }
       }
     }
   },
   {
     "User": {
-      "id": 2,
+      "token": "123e4567-e89b-12d3-a456-426614174000",
       "Full name": "Ana García",
       "Birthdate": "1992-11-25",
       "Marital status": "Soltera",
@@ -52,12 +80,40 @@
           "Medicine in use": "Inhalador para el asma",
           "Vaccine history": "Todas al día"
         }
+      },
+      "Metadata": {
+        "Patient history": "Completa",
+        "Clinical environment": "Rural",
+        "Disease": "Asma",
+        "Age group": "Joven adulto",
+        "Gender": "Femenino",
+        "Ethnicity": "Mestiza",
+        "Modality": {
+          "Name": "Radiografía",
+          "Description": "De tórax"
+        },
+        "File types": {
+          "Name": "PNG",
+          "Description": "Imagen médica"
+        },
+        "Anatomical area": {
+          "Zone": "Tórax",
+          "Name": "Pulmones",
+          "Type": "Órgano"
+        },
+        "Files": {
+          "Name": "Rx_torax.png",
+          "Resolution": "1024x768",
+          "Contrast": "Ninguno",
+          "Dimension": "2D",
+          "Scanner phase": "Inspiración"
+        }
       }
     }
   },
   {
     "User": {
-      "id": 3,
+      "token": "987f6543-c21d-98e7-b543-876543210987",
       "Full name": "Juan Pérez",
       "Birthdate": "1985-06-15",
       "Marital status": "Married",
@@ -78,14 +134,42 @@
           "Medical procedure": "Appendectomy",
           "Allergy": "Penicillin",
           "Medicine in use": "Lisinopril",
-          "Vaccine history": "Covid-19, Tetanus"
+          "Vaccine history": "Covtoken-19, Tetanus"
+        }
+      },
+      "Metadata": {
+        "Patient history": "Regular checkups",
+        "Clinical environment": "Hospital",
+        "Disease": "Hypertension",
+        "Age group": "Adult",
+        "Gender": "Male",
+        "Ethnicity": "Hispanic",
+        "Modality": {
+          "Name": "X-Ray",
+          "Description": "Chest X-Ray"
+        },
+        "File types": {
+          "Name": "DICOM",
+          "Description": "Digital Imaging"
+        },
+        "Anatomical area": {
+          "Zone": "Thorax",
+          "Name": "Lungs",
+          "Type": "Soft Tissue"
+        },
+        "Files": {
+          "Name": "chest_xray_juan",
+          "Resolution": "1024x768",
+          "Contrast": "High",
+          "Dimension": "2D",
+          "Scanner phase": "Posteroanterior"
         }
       }
     }
   },
   {
     "User": {
-      "id": 4,
+      "token": "456a7890-d32e-56f8-c789-987654321012",
       "Full name": "Maria González",
       "Birthdate": "1992-03-22",
       "Marital status": "Single",
@@ -106,7 +190,35 @@
           "Medical procedure": "None",
           "Allergy": "None",
           "Medicine in use": "None",
-          "Vaccine history": "Covid-19, Hepatitis B"
+          "Vaccine history": "Covtoken-19, Hepatitis B"
+        }
+      },
+      "Metadata": {
+        "Patient history": "Routine checkup",
+        "Clinical environment": "Clinic",
+        "Disease": "None",
+        "Age group": "Young Adult",
+        "Gender": "Female",
+        "Ethnicity": "Caucasian",
+        "Modality": {
+          "Name": "MRI",
+          "Description": "Brain MRI"
+        },
+        "File types": {
+          "Name": "JPEG",
+          "Description": "Brain scan image"
+        },
+        "Anatomical area": {
+          "Zone": "Head",
+          "Name": "Brain",
+          "Type": "Neural Tissue"
+        },
+        "Files": {
+          "Name": "mri_brain_maria",
+          "Resolution": "1280x720",
+          "Contrast": "Medium",
+          "Dimension": "3D",
+          "Scanner phase": "Axial"
         }
       }
     }
