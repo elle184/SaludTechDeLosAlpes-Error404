@@ -1,5 +1,7 @@
 FROM python:3.10.9
 
+WORKDIR /app
+
 EXPOSE 5050/tcp
 
 COPY requirements-bff.txt ./

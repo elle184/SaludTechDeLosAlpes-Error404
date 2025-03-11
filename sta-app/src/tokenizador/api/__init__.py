@@ -3,6 +3,9 @@ import os
 from flask import Flask, jsonify, redirect, render_template, request, url_for
 from flask_swagger import swagger
 import logging
+import pulsar
+from ..modules.tokenizador.infraestructure.consumer import suscribirse_a_eventos
+import threading
 
 
 logging.basicConfig(level=logging.DEBUG) 
@@ -34,6 +37,9 @@ def create_app(configuracion=None):
         app.config['SQLALCHEMY_DATABASE_URI'] =\
             'sqlite:///' + os.path.join(basedir, 'databasetoken.db')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    thread1 = threading.Thread(target=suscribirse_a_eventos, name="Thread-anonimizacion")
+    thread1.start()
 
      # Inicializa la DB
     #from aeroalpes.config.db import init_db

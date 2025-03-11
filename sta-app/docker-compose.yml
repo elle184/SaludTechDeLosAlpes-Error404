@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   anonimizador:
@@ -37,6 +37,29 @@ services:
     networks:
       - app_network
 
+  tokenizador:
+    build:
+      context: .
+      dockerfile: tokenizador.Dockerfile
+    container_name: tokenizador
+    hostname: tokenizador
+    restart: on-failure
+    ports:
+      - "5001:5001"
+    networks:
+      - app_network
+
+  saga:
+    build:
+      context: .
+      dockerfile: saga.Dockerfile
+    container_name: saga
+    hostname: saga
+    restart: on-failure
+    ports:
+      - "5004:5004"
+    networks:
+      - app_network
 
   pulsar-express:
     image: bbonnin/pulsar-express

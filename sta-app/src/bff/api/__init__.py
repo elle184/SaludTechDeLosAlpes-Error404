@@ -42,10 +42,10 @@ def create_app(configuracion=None):
         #db.create_all()
 
      # Importa Blueprints
-    from . import clients
+    from . import bff
 
     # Registro de Blueprints
-    app.register_blueprint(clients.bp)
+    app.register_blueprint(bff.bp)
 
     @app.route("/spec")
     def spec():
