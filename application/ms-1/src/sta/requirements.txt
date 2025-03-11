@@ -4,7 +4,7 @@ coverage==6.5.0
 Flask==2.2.2
 Flask-SQLAlchemy==2.5.1
 flask-swagger==0.2.14
-greenlet==2.0.1
+# greenlet==2.0.1
 iniconfig==1.1.1
 itsdangerous==2.1.2
 Jinja2==3.1.2
@@ -18,9 +18,11 @@ PyYAML==6.0.1
 SQLAlchemy==1.4.44
 tomli==2.0.1
 Werkzeug==2.2.2
-pulsar-client==3.6.1
-fastapi==0.110.0
-uvicorn==0.30.1
-pydantic==2.7.1
-httpx==0.27.0
-aiosqlite
+# Cliente oficial de Apache Pulsar
+pulsar-client==3.3.0
+# Soporte para serialización y deserialización con Avro
+fastavro==1.9.5
+python-dotenv
+python-jose
+flask-cors
+six~=1.17.0
