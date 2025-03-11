@@ -33,7 +33,7 @@ def process_data():
             return jsonify({"error": "Missing or invalid Authorization header"}), 401
         token = token.split(' ')[1]
         response = requests.post(
-            "http://35.208.58.95/saga",
+            "http://35.208.58.95:5004/saga",
             headers={
                 "accept": "application/json",
                 "Content-Type": "application/json",
