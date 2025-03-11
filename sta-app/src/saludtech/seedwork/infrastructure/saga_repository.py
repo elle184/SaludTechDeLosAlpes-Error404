@@ -91,3 +91,29 @@ class SagaRepository:
                 record["processed_data"] = json.loads(record["processed_data"])
                 return record
             return None
+
+    async def get_all_registers(self) -> list[Dict[str, Any]]:
+        """
+        Obtiene todos los registros de la tabla saga_requests en formato de lista de diccionarios.
+        Cada diccionario representa un registro con sus campos como llave-valor.
+        """
+        await self.create_table()
+        async with aiosqlite.connect(DB_FILE) as db:
+            # Hacer que SQLite devuelva filas como diccionarios
+            db.row_factory = aiosqlite.Row
+            cursor = await db.execute("SELECT * FROM saga_requests")
+            rows = await cursor.fetchall()
+            
+            # Convertir las filas a diccionarios completos con datos JSON parseados
+            result = []
+            for row in rows:
+                # Convertir Row a diccionario
+                record = dict(row)
+                
+                # Parsear los campos JSON
+                record["request_data"] = json.loads(record["request_data"])
+                record["processed_data"] = json.loads(record["processed_data"])
+                
+                result.append(record)
+            
+            return result

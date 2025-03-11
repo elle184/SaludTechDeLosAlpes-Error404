@@ -16,7 +16,6 @@ class SagaResponse(BaseModel):
     error: str = None
     data: Dict[str, Any] = None
 
-# TOKEN: validar que recibo un token X
 @app.post("/saga", response_model=SagaResponse)
 async def start_saga(request: SagaRequest):
     """
@@ -39,6 +38,19 @@ async def get_saga_status(saga_id: str):
     if record:
         return record
     raise HTTPException(status_code=404, detail="Saga no encontrada")
+
+
+@app.get("/saga_all")
+async def get_saga_status():
+    """
+    Endpoint para obtener todos los registros de la base de datos.
+    """
+    repo = SagaRepository()
+    record = await repo.get_all_registers()
+    if record:
+        return record
+    raise HTTPException(status_code=404, detail="Sin registros en la base de datos")
+
 
 class HealthCheck(BaseModel):
     """Response model to validate and return when performing a health check."""
