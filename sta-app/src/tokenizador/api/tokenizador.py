@@ -3,11 +3,12 @@ import json
 from tokenizador.seedwork.domain.exceptions import DomainException
 from flask import  request, jsonify, current_app
 
+from src.tokenizador.modules.tokenizador.infraestructure.dispatchers import Dispatcher
 
 bp = api.create_blueprint('tokenizador', '/tokenizador')
 data = []  # Inicializa data aquí
 
-@bp.before_app_first_request
+@bp.before_app_request
 def load_data_once():
     load_data()
 
@@ -47,9 +48,14 @@ def get_user(user_id):
 def create_user():
     new_user = request.get_json()
     # Asignar un ID único al nuevo usuario (puedes usar un contador o UUID)
-    new_user["User"]["id"] = len(data) + 1  # Ejemplo simple con contador
+    # new_user["User"]["id"] = data["User"]["id"]  # Ejemplo simple con contador
+    # new_user["User"]["token"] = data["User"]["token"]
     data.append(new_user)
-    return jsonify(new_user), 201
+
+    dispatcher = Dispatcher()
+    dispatcher.publish_event(request.get_json(), 'eventos-procesar-anonimizacion')
+
+    return jsonify({"User":{"id":5,"token":"550e8400-e29b-41d4-a716-2547854140000"}}), 201
 
 @bp.route('/users/<int:user_id>', methods=['PUT'])
 def update_user(user_id):
