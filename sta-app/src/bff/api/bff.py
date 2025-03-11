@@ -4,7 +4,7 @@ from bff.seedwork.domain.exceptions import DomainException
 from flask import redirect, render_template, request, session, url_for, jsonify
 from flask import Response
 import requests
-
+import random
 
 bp = api.create_blueprint('bff', '/bff')
 
@@ -42,6 +42,20 @@ def process_data():
             json=payload
         )
         print(response.json())
+        response.raise_for_status()
+        data = response.json()
+        return jsonify(data), 200
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@bp.route('/auth', methods=['GET'])
+def auth():
+    try:
+        user_id = random.randint(1, 4)
+        response = requests.get(
+            f"http://localhost/users/{user_id}",
+        )
         response.raise_for_status()
         data = response.json()
         return jsonify(data), 200
