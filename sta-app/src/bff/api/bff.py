@@ -28,11 +28,16 @@ def process_data():
     try:
         payload = request.get_json()
         print(payload)
+        token = request.headers.get('Authorization')
+        if not token or not token.startswith('Bearer '):
+            return jsonify({"error": "Missing or invalid Authorization header"}), 401
+        token = token.split(' ')[1]
         response = requests.post(
-            "http://localhost:5000/saga",
+            "http://35.208.58.95/saga",
             headers={
                 "accept": "application/json",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {token}"
             },
             json=payload
         )
