@@ -54,7 +54,7 @@ def auth():
     try:
         user_id = random.randint(1, 4)
         response = requests.get(
-            f"http://localhost/users/{user_id}",
+            f"http://35.209.10.96//users/{user_id}",
         )
         response.raise_for_status()
         data = response.json()
