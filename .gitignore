@@ -9,3 +9,7 @@ DDD
 *.pyc
 application/.idea
 application/ms-1/.venv/
+.venv
+__pycache__
+.idea
+saga.db
