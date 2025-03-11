@@ -5,6 +5,7 @@ import time
 import logging
 import traceback
 import time
+from src.tokenizador.seedwork.infrastructure import utils
 
 class ProcesarAnonimizacion(Record):
     token = String()
@@ -13,7 +14,7 @@ class ProcesarAnonimizacion(Record):
 def suscribirse_a_eventos():
     cliente = None
     try:
-        cliente = pulsar.Client(f'pulsar://pulsar:6650')
+        cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
         consumidor = cliente.subscribe('eventos-procesar-anonimizacion', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='eventos-procesar-anonimizacion', schema=AvroSchema(ProcesarAnonimizacion))
 
         while True:
