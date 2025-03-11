@@ -5,7 +5,7 @@ import time
 import logging
 import traceback
 import time
-from src.tokenizador.seedwork.infrastructure import utils
+from ....seedwork.infrastructure import utils
 
 class ProcesarAnonimizacion(Record):
     token = String()
