@@ -29,7 +29,8 @@ def publish_and_wait_for_event(topic: str, data: dict, saga_id: str, service_url
     finally:
         client.close()
 
-async def publish_event_with_confirmation(topic: str, data: dict, saga_id: str, service_url="pulsar://34.135.143.83:6650", timeout=10):
+
+async def publish_event_with_confirmation(topic: str, data: dict, saga_id: str, service_url="pulsar://34.72.6.37:6650", timeout=10):
     """
     Wrapper asíncrono para la función de Pulsar que se ejecuta en un thread.
     """

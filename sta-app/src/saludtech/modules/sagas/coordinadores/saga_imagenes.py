@@ -68,7 +68,7 @@ class SagaImagenes(SagaBase):
             logger.info(f"[{saga_id}] Step 3: Llamando al servicio AI Model Process")
             async with httpx.AsyncClient() as client:
                 # response = await client.post("http://ai-model-service/process", json=data, timeout=3.0)
-                response = await client.get("http://35.239.98.112:5000/a-model/processed-data", timeout=30)
+                response = await client.get("http://35.193.187.114:5000/a-model/processed-data", timeout=30)
                 response.raise_for_status()
                 ai_result = response.json()
             saga_record["processed_data"]["ai_result"] = ai_result
