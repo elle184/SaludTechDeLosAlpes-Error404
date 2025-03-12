@@ -32,6 +32,7 @@ def process_data():
         if not token or not token.startswith('Bearer '):
             return jsonify({"error": "Missing or invalid Authorization header"}), 401
         token = token.split(' ')[1]
+
         response = requests.post(
             "http://35.208.102.128/saga",
             headers={
@@ -41,13 +42,27 @@ def process_data():
             },
             json=payload
         )
-        print(response.json())
-        response.raise_for_status()
-        data = response.json()
-        return jsonify(data), 200
-    except requests.exceptions.RequestException as e:
-        return jsonify({"error": str(e)}), 500
 
+        # Check if request was successful
+        response.raise_for_status()
+
+        # Check if response has content before parsing JSON
+        if response.text.strip():
+            try:
+                data = response.json()
+                print(data)  # Print after successful parsing
+                return jsonify(data), 200
+            except json.JSONDecodeError as json_err:
+                print(f"Invalid JSON response: {response.text}")
+                return jsonify({"error": "Invalid response format from server"}), 500
+        else:
+            # Handle empty response
+            print("Empty response received")
+            return jsonify({"message": "Request processed successfully but no data returned"}), 200
+
+    except requests.exceptions.RequestException as e:
+        print(f"Request error: {str(e)}")
+        return jsonify({"error": str(e)}), 500
 
 @bp.route('/auth', methods=['GET'])
 def auth():
