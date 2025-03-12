@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  tokenizer_command:
+    build:
+      context: ./
+    container_name: tokenizer_command
+    depends_on:
+      - db_command
+    environment:
+      - DB_HOST=db_command
+      - DB_USER=admin
+      - DB_PASSWORD=admin
+      - DB_NAME=tokenizer_command_db
+    command: ["python", "main.py"]
+
+  db_command:
+    image: mysql:latest
+    container_name: db_command
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: tokenizer_command_db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_command_data:/var/lib/mysql
+
+volumes:
+  db_command_data:

@@ -1,0 +1,2 @@
+pulsar-client==3.6.1
+pymysql==1.0.2
