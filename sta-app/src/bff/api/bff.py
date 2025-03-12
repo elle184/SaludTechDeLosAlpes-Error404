@@ -34,7 +34,7 @@ def process_data():
         token = token.split(' ')[1]
 
         response = requests.post(
-            "http://35.208.102.128/saga",
+            "http://35.208.102.128:5004/saga",
             headers={
                 "accept": "application/json",
                 "Content-Type": "application/json",
